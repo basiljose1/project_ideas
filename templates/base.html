@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0"/>
+	<title>{% block title %}Project Idea{% endblock title %}</title>
+
+	<!-- CSS  -->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="{% static 'css/materialize.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+	<link href="{% static 'css/style.css' %}" type="text/css" rel="stylesheet" media="screen,projection"/>
+	{% block style %}
+	{% endblock style %}
+</head>
+<body>
+<header>
+	<nav class="black" role="navigation">
+		<div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Project</a>
+			<ul class="right hide-on-med-and-down">
+				{% if user.is_authenticated %}
+				<li><a href="{% url 'logout' %}">Logout</a></li>
+				<li><a>{% firstof user.name user.email %}</a></li>
+				{% else %}
+				<li><a href="#">Register</a></li>
+				{% endif %}
+			</ul>
+
+			<ul id="nav-mobile" class="sidenav">
+				<li><a href="#">Register</a></li>
+			</ul>
+			<a href="#" data-target="nav-mobile" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+		</div>
+	</nav>
+</header>
+<main>
+	<div class="container">
+		{% block content %}
+		if you see this, something is wrong!
+		{% endblock content %}
+
+	</div>
+</main>
+
+<footer class="page-footer black">
+	<div class="footer-copyright">
+		<div class="container">
+			Made by <a class="orange-text text-lighten-3">Basil</a> © 2019
+		</div>
+	</div>
+</footer>
+
+
+<!--  Scripts-->
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="{% static 'js/materialize.js' %}"></script>
+<script src="{% static 'js/init.js' %}"></script>
+{% block script %}
+{% endblock script %}
+
+</body>
+</html>
