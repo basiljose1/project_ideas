@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+	<h4>Ideas</h4>
+	<div class="collection">
+		{% for idea in object_list %}
+		<a href="{% url 'idea_details' idea.pk %}" class="collection-item">{{ idea.title }} by <span>{{idea.owner.name}}</span></a>
+		{% empty %}
+		<a class="collection-item">No ideas yet.</a>
+		{% endfor %}
+      </div>
+</div>
+{% endblock %}

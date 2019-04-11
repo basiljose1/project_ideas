@@ -21,13 +21,24 @@ from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from django.urls import path
 from django.views.generic import TemplateView
+from accounts import views
+from core import views as core_view
 
 urlpatterns = [
-                  path('', login_required(TemplateView.as_view(template_name="home.html")), name='home'),
+                  # path('', login_required(TemplateView.as_view(template_name="home.html")), name='home'),
+                  path('', core_view.IdeaListView.as_view(), name='home'),
+
+                  path('register/', views.RegisterView.as_view(), name='register'),
                   path('login/', auth_views.LoginView.as_view(template_name="login.html"), name='login'),
                   path('logout/', auth_views.LogoutView.as_view(next_page='login'), name='logout'),
                   path('admin/', admin.site.urls),
                   path('oauth/', include('social_django.urls', namespace='social')),
+
+                  path('idea/', core_view.IdeaListView.as_view(), name='ideas'),
+                  path('idea/create', core_view.IdeaCreate.as_view(), name='idea_add'),
+                  path('idea/<int:pk>/', core_view.IdeaDetailView.as_view(), name='idea_details'),
+                  path('idea/<int:pk>/update', core_view.IdeaUpdate.as_view(), name='idea_update'),
+                  path('idea/<int:pk>/delete', core_view.IdeaDelete.as_view(), name='idea_delete'),
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -3,7 +3,6 @@ from django.core.mail import send_mail
 from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
-# https://github.com/egorsmkv/simple-django-login-and-register
 
 class ModelManager(models.Manager):
     def get_queryset(self, fetch_all=False):

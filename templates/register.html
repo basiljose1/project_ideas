@@ -7,11 +7,12 @@
 <div class="row">
 	<div class="col s12 m4 l2"></div>
 	<div class="col s12 m4 l6">
-		<h5>Login</h5>
+		<h5>Register</h5>
 		<form method="post">
 			{% csrf_token %}
 			{{ form.as_table }}
-			<button type="submit" class="waves-effect waves-light btn">Login </button>
+			<br>
+			<button type="submit" class="waves-effect waves-light btn">Register </button>
 			<a class="btn-flat disabled">-- or --</a>
 			<a href="{% url 'social:begin' 'github' %}" class="waves-effect waves-light btn">Login via github</a>
 		</form>
