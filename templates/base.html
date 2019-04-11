@@ -20,9 +20,9 @@
 			<ul class="right hide-on-med-and-down">
 				{% if user.is_authenticated %}
 				<li><a href="{% url 'home' %}">Home</a></li>
-				<li><a href="{% url 'idea_add' %}">Add idea</a></li>
-				<li><a>{% firstof user.name user.email %}</a></li>
-				<li><a href="{% url 'logout' %}">Logout</a></li>
+				<li><a href="{% url 'idea_add' %}">Have New Idea ?</a></li>
+				<li><a>Welcome {% firstof user.name user.email %}</a></li>
+				<li><a href="{% url 'logout' %}" class="red">Logout</a></li>
 				{% else %}
 				<li><a href="{% url 'register' %}">Register</a></li>
 				{% endif %}

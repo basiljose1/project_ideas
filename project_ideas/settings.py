@@ -35,12 +35,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
 
     # custom
     'core.apps.CoreConfig',
     'accounts.apps.AccountsConfig',
 
     'social_django',
+    'django_comments',
+    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -55,8 +58,11 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
+COMMENTS_APP = 'core'
+
 AUTH_USER_MODEL = 'accounts.User'
 
+SITE_ID = 1
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
 LOGIN_REDIRECT_URL = 'home'
