@@ -9,4 +9,6 @@ Installatoion
 
 surf : http://127.0.0.1:8002/
 
-run in 8002 port and 127.0.0.1 host is important, since github redirection is set that. 
+Note:
+* running in 8002 port and 127.0.0.1 host is important, since github redirection is set that. 
+* EMAIL_BACKEND is set to console, so for email action check console log.

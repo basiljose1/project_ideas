@@ -1,6 +1,6 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from django.urls import reverse_lazy
+from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
 from django.utils import timezone
 
@@ -10,7 +10,7 @@ from core.tasks import send_email
 
 class IdeaCreate(LoginRequiredMixin, CreateView):
     model = Idea
-    fields = ['title', 'detail']
+    fields = ['title', 'summary', 'detail']
     template_name = 'idea-add.html'
 
     def get_success_url(self):
@@ -26,7 +26,7 @@ class IdeaCreate(LoginRequiredMixin, CreateView):
 
 class IdeaUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Idea
-    fields = ['title', 'detail']
+    fields = ['title', 'summary', 'detail']
     template_name = 'idea-add.html'
 
     def get_success_url(self):
@@ -66,3 +66,11 @@ class IdeaListView(LoginRequiredMixin, ListView):
 class IdeaDetailView(LoginRequiredMixin, DetailView):
     model = Idea
     template_name = "idea-details.html"
+
+def share_via_email(request):
+    url = '/'
+    if request.method == 'POST':
+        id  = request.POST.get('id')
+        url = request.build_absolute_uri((reverse('idea_details', kwargs={'pk': id})))
+        send_email('Idea Shared', 'Hi, Refer to view: %s ' % (url,) , request.POST.get('email'))
+    return HttpResponseRedirect(url)

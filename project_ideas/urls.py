@@ -36,6 +36,7 @@ urlpatterns = [
                   path('idea/<int:pk>/', core_view.IdeaDetailView.as_view(), name='idea_details'),
                   path('idea/<int:pk>/update', core_view.IdeaUpdate.as_view(), name='idea_update'),
                   path('idea/<int:pk>/delete', core_view.IdeaDelete.as_view(), name='idea_delete'),
+                  path('share/idea', core_view.share_via_email, name='share_via'),
 
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
