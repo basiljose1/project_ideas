@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from django.utils import timezone
 
 from core.models import Idea
-from core.tasks import  send_email
+from core.tasks import send_email
 
 
 class IdeaCreate(LoginRequiredMixin, CreateView):
@@ -24,7 +24,7 @@ class IdeaCreate(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class IdeaUpdate(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
+class IdeaUpdate(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Idea
     fields = ['title', 'detail']
     template_name = 'idea-add.html'
@@ -37,7 +37,7 @@ class IdeaUpdate(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
         return obj.owner == self.request.user
 
 
-class IdeaDelete(LoginRequiredMixin,UserPassesTestMixin, DeleteView):
+class IdeaDelete(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Idea
     success_url = reverse_lazy('ideas')
 

@@ -43,7 +43,6 @@ INSTALLED_APPS = [
 
     'social_django',
     'django_comments',
-    'mptt',
 ]
 
 MIDDLEWARE = [
@@ -58,7 +57,6 @@ MIDDLEWARE = [
     'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
-COMMENTS_APP = 'core'
 
 AUTH_USER_MODEL = 'accounts.User'
 

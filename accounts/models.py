@@ -4,6 +4,7 @@ from django.contrib.auth.models import PermissionsMixin
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 
+
 class ModelManager(models.Manager):
     def get_queryset(self, fetch_all=False):
         return super(ModelManager, self).get_queryset() if fetch_all \
@@ -11,7 +12,6 @@ class ModelManager(models.Manager):
 
 
 class DateMixin(models.Model):
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     deleted_at = models.DateTimeField(null=True, blank=True)
@@ -51,8 +51,7 @@ class UserManager(ModelManager, BaseUserManager):
 
 
 class User(AbstractBaseUser, PermissionsMixin, DateMixin):
-
-    username = models.CharField(_('Username'),max_length=150, unique=True)
+    username = models.CharField(_('Username'), max_length=150, unique=True)
     email = models.EmailField(_('Email address'), unique=True)
     name = models.CharField(_('Name'), max_length=30)
     is_active = models.BooleanField(_('Active'), default=True)
@@ -67,6 +66,8 @@ class User(AbstractBaseUser, PermissionsMixin, DateMixin):
         verbose_name_plural = _('users')
         ordering = ['-created_at']
 
+    def get_full_name(self):
+        return self.name
 
     def email_user(self, subject, message, from_email=None, **kwargs):
         '''

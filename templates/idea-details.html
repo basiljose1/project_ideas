@@ -1,9 +1,57 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container">
-	<div class="row">
-		<h4>{{ object.title }}</h4>
+<div class="row">
+	<div class="col s8">
+		<div class="row">
+			<h4>{{ object.title }}</h4>
+			<p>by {{ object.owner.name }} on {{ object.created_at|date }}</p>
+		</div>
+		<div class="row"></div>
+
+		<div class="row">
+			<p class="z-depth-5">{{ object.detail }}</p>
+		</div>
+		<div class="row">
+			{% load comments %}
+
+			{% get_comment_list for core.idea object.pk as comment_list %}
+			<ul class="collection">
+				{% for comment in comment_list %}
+				<li class="collection-item avatar">
+					<i class="material-icons circle">message</i>
+					<span class="title">{{ comment.comment }}</span>
+					<p style="font-size:10px"> by {{ comment.user_name }} on {{ comment.submit_date }}
+					</p>
+				</li>
+				{% endfor %}
+			</ul>
+			{% get_comment_form for object as form %}
+			<div class="row">
+				<form action="{% comment_form_target %}" method="post">
+					{% csrf_token %}
+					<input type="hidden" name="name" maxlength="50" required="" value="{{user.name}}" id="id_name">
+					<input type="hidden" name="email" required="" id="id_email" value="{{user.email}}">
+					{{form.content_type}}
+					{{form.object_pk}}
+					{{form.timestamp}}
+					{{form.security_hash}}
+					<input type="hidden" name="next" value="{% url 'idea_details' object.pk %}"/>
+					<div class="input-field col s12">
+				<textarea class="materialize-textarea" name="comment" cols="40" rows="10" maxlength="3000" required=""
+				          id="id_comment" data-length="3000"></textarea>
+						<label for="id_comment">Comment</label>
+					</div>
+
+					<button class="btn waves-effect waves-light" type="submit" name="action">Save
+						<i class="material-icons right">send</i>
+					</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="col s4">
+		<div class="row"></div>
 		{% if user == object.owner %}
 		<div class="right">
 			<a class="waves-effect waves-light btn" href="{% url 'idea_update' object.pk %}">edit</a>
@@ -16,11 +64,20 @@
 		</div>
 		{% endif %}
 	</div>
-	<div class="row">
-		<p>{{ object.detail }}</p>
-		<p>Owner: {{ object.owner }}</p>
-		<p>Published: {{ object.created_at|date }}</p>
-	</div>
 </div>
-{% include "_comments.html" %}{% endwith %}
 {% endblock %}
+
+{% block script %}
+<style>
+	textarea.materialize-textarea{height: 6rem;}
+
+</style>
+<script>
+	$(document).ready(function() {
+	    $('textarea#id_comment').characterCounter();
+    });
+
+</script>
+{% endblock script %}
+
+
