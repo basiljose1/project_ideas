@@ -1,6 +1,6 @@
 # Make your idea stand out - Project Idea Mangement
 
-Installatoion
+Installation
 
 1 .clone the repo
 
@@ -10,8 +10,9 @@ Installatoion
 
 4. python manage.py runserver 8002
 
-surf : http://127.0.0.1:8002/
+Surf : http://127.0.0.1:8002/
 
 Note:
 * running in 8002 port and 127.0.0.1 host is important, since github redirection is set that. 
 * EMAIL_BACKEND is set to console, so for email action check console log.
+* sqlite3 Database is used
