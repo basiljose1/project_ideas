@@ -8,7 +8,7 @@ django-contrib-comments==1.9.1
 django-js-asset==1.2.2
 idna==2.8
 ipdb==0.12
-ipython==7.1.1
+ipython==7.16.3
 ipython-genutils==0.2.0
 jedi==0.13.3
 oauthlib==3.0.1
